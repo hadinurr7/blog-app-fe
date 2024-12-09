@@ -1,5 +1,8 @@
-import RegisterPage from "../features/register";
+"use client";
+
+import { useAppSelector } from "@/redux/hooks";
 
 export default function Home() {
-  return <RegisterPage />;
+  const user = useAppSelector((state) => state.user);
+  return <h1>Hello, {user.name}</h1>;
 }
