@@ -14,7 +14,7 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("blog-storage");
     dispatch(logoutAction());
-    router.push("/login");
+    router.push("/");
   };
 
   return (
@@ -25,11 +25,11 @@ const Navbar = () => {
             Logo
           </Link>
 
-          <div className="flex items-center gap-8 font-medium">
+          <div className="flex cursor-pointer items-center gap-8 font-medium">
             <Link href="/">Home</Link>
             <Link href="/">Profile</Link>
             {!user?.id && <Link href="/login">Login</Link>}
-            {user?.id && <button onClick={logout} className="cursor-pointer">Log out</button>}
+            {user?.id && <a onClick={logout}>Log out</a>}
           </div>
         </div>
       </div>
