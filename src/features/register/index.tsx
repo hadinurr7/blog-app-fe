@@ -1,11 +1,11 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import useRegister from "@/hooks/api/auth/useRegister";
 import { useFormik } from "formik";
 import { RegisterSchema } from "./schema";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export const RegisterPage = () => {
   const { mutateAsync: register, isPending } = useRegister();
