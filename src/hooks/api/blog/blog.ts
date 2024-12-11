@@ -1,13 +1,13 @@
 import { axiosInstance } from "@/lib/axios";
 import { Blog } from "@/types/blog";
-import { PageableResponse, paginationQueries } from "@/types/pigination";
+import { PageableResponse, PaginationQueries } from "@/types/pigination";
 import { useQuery } from "@tanstack/react-query";
 
-interface GetBlogsQuery extends paginationQueries {}
+interface GetBlogsQueries extends PaginationQueries {}
 
-const useGetBlogs = (queries: GetBlogsQuery) => {
+const useGetBlogs = (queries: GetBlogsQueries) => {
   return useQuery({
-    queryKey: ["blogs"],
+    queryKey: ["blogs", queries],
     queryFn: async () => {
       const { data } = await axiosInstance.get<PageableResponse<Blog>>(
         "/blogs",

@@ -1,11 +1,10 @@
 "use client";
-
 import LoadingScreen from "@/app/components/LoadingScreen";
 import { useAppDispatch } from "@/redux/hooks";
 import { loginAction } from "@/redux/slices/userSlice";
-import { useEffect, PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 
-const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
+const AuthProvider = ({ children }: PropsWithChildren) => {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -21,9 +20,11 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
       setIsLoading(false);
     }, 500);
   }, []);
+
   if (isLoading) {
     return <LoadingScreen />;
   }
+
   return <>{children}</>;
 };
 

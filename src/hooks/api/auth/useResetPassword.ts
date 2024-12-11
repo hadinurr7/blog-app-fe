@@ -12,22 +12,21 @@ interface ResetPasswordPayload {
 
 const useResetPassword = (token: string) => {
   const router = useRouter();
-
   return useMutation({
     mutationFn: async (payload: ResetPasswordPayload) => {
       const { data } = await axiosInstance.patch(
-        "/auth/reset-passowrd",
+        "/auth/reset-password",
         payload,
         {
           headers: {
-            Authorization: `Bearer${token}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
       return data;
     },
-    onSuccess: () => {
-      toast.success("Reset password success");
+    onSuccess: (data) => {
+      toast.success("Reset Password success");
       router.push("/login");
     },
     onError: (error: AxiosError<any>) => {
