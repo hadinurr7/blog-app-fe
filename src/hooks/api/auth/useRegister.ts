@@ -9,6 +9,7 @@ interface RegisterPayload {
   name: string;
   email: string;
   password: string;
+  referralCode?: String;
 }
 
 const useRegister = () => {
@@ -18,7 +19,7 @@ const useRegister = () => {
       return data;
     },
     onSuccess: () => {
-      toast.success("Register success");
+      toast.success("Register Success");
     },
     onError: (error: AxiosError<any>) => {
       toast.error(error.response?.data);

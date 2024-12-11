@@ -1,34 +1,32 @@
 "use client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import useRegister from "@/hooks/api/auth/useRegister";
 import { useFormik } from "formik";
 import { RegisterSchema } from "./schema";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
-export const RegisterPage = () => {
+const RegisterPage = () => {
   const { mutateAsync: register, isPending } = useRegister();
-
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       password: "",
+      referralCode: "",
     },
-    
     validationSchema: RegisterSchema,
-
     onSubmit: async (values) => {
       await register(values);
     },
   });
 
   return (
-<main className="flex justify-center pt-20">
+    <main className="flex justify-center pt-20">
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Sign up</CardTitle>
+          <CardTitle>Register</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={formik.handleSubmit}>
@@ -38,7 +36,7 @@ export const RegisterPage = () => {
                 <Input
                   name="name"
                   type="text"
-                  placeholder="Name of your project"
+                  placeholder="Name"
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -77,15 +75,36 @@ export const RegisterPage = () => {
                   </p>
                 ) : null}
               </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="referralCode">Referral Code (Optional)</Label>
+                <Input
+                  name="referralCode"
+                  type="text"
+                  placeholder="Referral Code"
+                  value={formik.values.referralCode}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {!!formik.touched.referralCode &&
+                !!formik.errors.referralCode ? (
+                  <p className="text-xs text-red-500">
+                    {formik.errors.referralCode}
+                  </p>
+                ) : null}
+              </div>
             </div>
-
-            <Button type="submit" className="mt-4 w-full" disabled={isPending}>
-              {isPending ? "Loading..." : "Register"}
+            <Button
+              type="submit"
+              className="mt-4 w-full bg-[#80AE44] text-black hover:bg-[#9AC265]"
+              disabled={isPending}
+            >
+              {isPending ? "loading..." : "Register"}
             </Button>
           </form>
         </CardContent>
       </Card>
-    </main>  );
+    </main>
+  );
 };
 
 export default RegisterPage;

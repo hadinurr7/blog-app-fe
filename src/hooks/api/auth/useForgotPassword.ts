@@ -10,19 +10,18 @@ interface ForgotPasswordPayload {
   email: string;
 }
 
-const useLogin = () => {
+const useForgotPassword = () => {
   const router = useRouter();
-
   return useMutation({
     mutationFn: async (payload: ForgotPasswordPayload) => {
       const { data } = await axiosInstance.post(
-        "/auth/forgot-passowrd",
+        "/auth/forgot-password",
         payload,
       );
       return data;
     },
-    onSuccess: () => {
-      toast.success("Email reset password has been sent to your");
+    onSuccess: (data) => {
+      toast.success("Send email success");
       router.push("/");
     },
     onError: (error: AxiosError<any>) => {
@@ -31,4 +30,4 @@ const useLogin = () => {
   });
 };
 
-export default useLogin;
+export default useForgotPassword;

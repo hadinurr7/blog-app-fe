@@ -1,20 +1,15 @@
 "use client";
-
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
-
   const user = useAppSelector((state) => state.user);
 
   const logout = () => {
     localStorage.removeItem("blog-storage");
     dispatch(logoutAction());
-    router.push("/");
   };
 
   return (
@@ -28,8 +23,12 @@ const Navbar = () => {
           <div className="flex cursor-pointer items-center gap-8 font-medium">
             <Link href="/">Home</Link>
             <Link href="/">Profile</Link>
-            {!user?.id && <Link href="/login">Login</Link>}
-            {user?.id && <a onClick={logout}>Log out</a>}
+            {user.id ? (
+              <p onClick={logout}>Sign out</p>
+            ) : (
+              <Link href="/login">Sign in</Link>
+            )}
+
           </div>
         </div>
       </div>

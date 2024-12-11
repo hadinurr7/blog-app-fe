@@ -1,9 +1,9 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Blog } from "@/types/blog";
 import Image from "next/image";
 import { FC } from "react";
 import { format } from "date-fns";
-import { Blog } from "@/types/blog";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface BlogCardProps {
   blog: Blog;

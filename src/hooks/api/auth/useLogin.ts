@@ -14,21 +14,18 @@ interface LoginPayload {
 }
 
 const useLogin = () => {
-
-  const router = useRouter()
-
-  const dispatch = useAppDispatch()
-
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   return useMutation({
     mutationFn: async (payload: LoginPayload) => {
-      const { data } = await axiosInstance.post("/auth/Login", payload);
+      const { data } = await axiosInstance.post("/auth/login", payload);
       return data;
     },
     onSuccess: (data) => {
-      toast.success("Login success");
-      dispatch(loginAction(data))
-      localStorage.setItem("blog-storage", JSON.stringify(data))
-      router.replace("/")
+      toast.success("Login Success");
+      dispatch(loginAction(data)); // masukkin data ke global state
+      localStorage.setItem("blog-storage", JSON.stringify(data)); // masukkin data ke local storage
+      router.replace("/");
     },
     onError: (error: AxiosError<any>) => {
       toast.error(error.response?.data);

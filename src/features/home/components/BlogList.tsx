@@ -1,11 +1,12 @@
 "use client";
 
-import useGetBlogs from "@/hooks/blog/blog";
+import useGetBlogs from "@/hooks/api/blog/blog";
+import BlogCard from "./BlogCard";
 import { useState } from "react";
+import PaginationSection from "@/app/components/PaginationSection";
 
 const BlogList = () => {
   const [page, setPage] = useState<number>(1);
-
   const { data, isPending } = useGetBlogs({ page });
 
   const onChangePage = (page: number) => {
@@ -13,16 +14,26 @@ const BlogList = () => {
   };
 
   if (isPending) {
-    return <h1 className="text-center">Loading...</h1>;
+    return <div className="text-center">Loading...</div>;
+  }
+  if (!data) {
+    return <div className="text-center">No data</div>;
   }
 
-  if (!data) {
-    return <h1 className="text-center"> Data</h1>;
-  }
   return (
-    <div className="">
-      <h1></h1>
-    </div>
+    <>
+      <div className="mt-8 grid grid-cols-3 gap-4">
+        {data?.data.map((blog, index) => {
+          return <BlogCard key={index} blog={blog} />;
+        })}
+      </div>
+      <PaginationSection
+        onChangePage={onChangePage}
+        page={page}
+        take={data.meta.take}
+        total={data.meta.total}
+      />
+    </>
   );
 };
 
