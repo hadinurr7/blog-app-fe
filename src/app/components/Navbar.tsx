@@ -28,6 +28,7 @@ const Navbar = () => {
             ) : (
               <Link href="/login">Sign in</Link>
             )}
+
           </div>
         </div>
       </div>
